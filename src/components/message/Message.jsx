@@ -8,6 +8,6 @@ export default function Message({ msg, type, removeMessage }) {
       removeMessage();
     }, 2000);
     return () => clearTimeout(timeout);
-  }, []);
+  }, [removeMessage]);
   return <p className={`message message-${type}`}>{msg}</p>;
 }
