@@ -25,7 +25,7 @@ export default function Home() {
   }, []);
 
   const getStudents = async () => {
-    const res = await axios.get("http://localhost:5000/api/students");
+    const res = await axios.get("https://rfid-back.vercel.app/api/students");
     setStudents(res.data);
     setLoading(false);
   };
@@ -34,11 +34,11 @@ export default function Home() {
   const searchStudent = async (studentId, rfId) => {
     let url;
     if (studentId && rfId) {
-      url = `http://localhost:5000/api/students?studentId=${studentId}&rfId=${rfId}`;
+      url = `https://rfid-back.vercel.app/api/students?studentId=${studentId}&rfId=${rfId}`;
     } else if (studentId) {
-      url = `http://localhost:5000/api/students?studentId=${studentId}`;
+      url = `https://rfid-back.vercel.app/api/students?studentId=${studentId}`;
     } else if (rfId) {
-      url = `http://localhost:5000/api/students?rfId=${rfId}`;
+      url = `https://rfid-back.vercel.app/api/students?rfId=${rfId}`;
     }
     const res = await axios.get(url);
     setStudents(res.data);
