@@ -56,7 +56,7 @@ export default function Add() {
       studenData.append("file", file);
     }
     try {
-      await axios.post("https://rfid-back.vercel.app/api/students", studenData);
+      await axios.post("http://localhost:5000/api/students", studenData);
       showMessage(true, "info", "Successfully added student information");
     } catch (error) {
       showMessage(true, "error", error);
@@ -78,7 +78,7 @@ export default function Add() {
                 src={
                   file
                     ? URL.createObjectURL(file)
-                    : "https://rfid-back.vercel.app/images/defaultPic.png"
+                    : "http://localhost:5000/images/defaultPic.png"
                 }
                 alt="Profile Pic"
               />

@@ -15,8 +15,8 @@ export default function Cards({ students }) {
               <img
                 src={
                   student.imagePic
-                    ? "https://rfid-back.vercel.app/" + student.imagePic
-                    : "https://rfid-back.vercel.app/images/defaultPic.png"
+                    ? "http://localhost:5000/" + student.imagePic
+                    : "http://localhost:5000/images/defaultPic.png"
                 }
                 alt="profile pic"
               />

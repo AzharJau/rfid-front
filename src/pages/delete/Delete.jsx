@@ -31,7 +31,7 @@ export default function Delete() {
   // Get the student information by passing the ID into our MongoDB Atlas database
   useEffect(() => {
     const getStudent = async () => {
-      const res = await axios.get("https://rfid-back.vercel.app/api/students/" + id);
+      const res = await axios.get("http://localhost:5000/api/students/" + id);
       setStudent(res.data);
     };
     getStudent();
@@ -46,7 +46,7 @@ export default function Delete() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.delete("https://rfid-back.vercel.app/api/students/" + student._id);
+      await axios.delete("http://localhost:5000/api/students/" + student._id);
       showMessage(true, "info", "Successfully deleted student information");
       clearStudentInfo();
     } catch (error) {
@@ -81,8 +81,8 @@ export default function Delete() {
               <img
                 src={
                   student.imagePic
-                    ? `https://rfid-back.vercel.app/${student.imagePic}`
-                    : "https://rfid-back.vercel.app/images/defaultPic.png"
+                    ? `http://localhost:5000/${student.imagePic}`
+                    : "http://localhost:5000/images/defaultPic.png"
                 }
                 alt="Profile Pic"
               />
