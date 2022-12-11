@@ -11,9 +11,9 @@ export default function Edit() {
   const navigate = useNavigate();
   // Extract the ID from the browser url
   const { id } = useParams();
-  // Our student state information
-  const [student, setStudent] = useState({
-    studentId: "",
+  // Our member state information
+  const [member, setMember] = useState({
+    memberId: "",
     firstName: "",
     lastName: "",
     course: "",
@@ -30,20 +30,20 @@ export default function Edit() {
     type: "",
   });
 
-  // Get the student information by passing the ID into our MongoDB Atlas database
+  // Get the member information by passing the ID into our MongoDB Atlas database
   useEffect(() => {
-    const getStudent = async () => {
-      const res = await axios.get("http://localhost:5000/api/students/" + id);
-      setStudent(res.data);
+    const getMember = async () => {
+      const res = await axios.get("http://localhost:5000/api/members/" + id);
+      setMember(res.data);
     };
-    getStudent();
+    getMember();
   }, [id]);
 
   // Update our state object
-  const updateStudent = (e) => {
+  const updateMember = (e) => {
     const fieldName = e.target.name;
-    setStudent((currentStudent) => ({
-      ...currentStudent,
+    setMember((currentMember) => ({
+      ...currentMember,
       [fieldName]: e.target.value,
     }));
   };
@@ -57,22 +57,22 @@ export default function Edit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const studenData = new FormData();
-    studenData.append("studentId", student.studentId);
-    studenData.append("firstName", student.firstName);
-    studenData.append("lastName", student.lastName);
-    studenData.append("course", student.course);
-    studenData.append("address", student.address);
-    studenData.append("expireAt", student.expireAt);
-    studenData.append("rfidBadgeNumber", student.rfidBadgeNumber);
+    studenData.append("memberId", member.memberId);
+    studenData.append("firstName", member.firstName);
+    studenData.append("lastName", member.lastName);
+    studenData.append("course", member.course);
+    studenData.append("address", member.address);
+    studenData.append("expireAt", member.expireAt);
+    studenData.append("rfidBadgeNumber", member.rfidBadgeNumber);
     if (file) {
       studenData.append("file", file);
     }
     try {
       await axios.put(
-        "http://localhost:5000/api/students/" + student._id,
+        "http://localhost:5000/api/members/" + member._id,
         studenData
       );
-      showMessage(true, "info", "Successfully edited student information");
+      showMessage(true, "info", "Successfully edited member information");
     } catch (error) {
       showMessage(true, "error", error);
     }
@@ -83,7 +83,7 @@ export default function Edit() {
     <>
       <Header />
       <div className="header">
-        <h1>Edit Student</h1>
+        <h1>Edit Member</h1>
       </div>
       <section className="managePage">
         <form className="editForm" onSubmit={handleSubmit}>
@@ -93,8 +93,8 @@ export default function Edit() {
                 src={
                   file
                     ? URL.createObjectURL(file)
-                    : student.imagePic
-                    ? `http://localhost:5000/${student.imagePic}`
+                    : member.imagePic
+                    ? `http://localhost:5000/${member.imagePic}`
                     : "http://localhost:5000/images/defaultPic.png"
                 }
                 alt="Profile Pic"
@@ -112,15 +112,15 @@ export default function Edit() {
             </div>
             <div className="fieldsColumn">
               <div className="fieldRow">
-                <label htmlFor="studentId" className="fieldLabel">
-                  Student ID
+                <label htmlFor="memberId" className="fieldLabel">
+                  Member ID
                 </label>
                 <input
                   type="text"
-                  name="studentId"
-                  id="studentId"
-                  value={student.studentId}
-                  onChange={updateStudent}
+                  name="memberId"
+                  id="memberId"
+                  value={member.memberId}
+                  onChange={updateMember}
                   className="editInputs"
                 />
               </div>
@@ -132,8 +132,8 @@ export default function Edit() {
                   type="text"
                   name="firstName"
                   id="firstName"
-                  value={student.firstName}
-                  onChange={updateStudent}
+                  value={member.firstName}
+                  onChange={updateMember}
                   className="editInputs"
                 />
               </div>
@@ -145,8 +145,8 @@ export default function Edit() {
                   type="text"
                   name="lastName"
                   id="lastName"
-                  value={student.lastName}
-                  onChange={updateStudent}
+                  value={member.lastName}
+                  onChange={updateMember}
                   className="editInputs"
                 />
               </div>
@@ -158,8 +158,8 @@ export default function Edit() {
                   type="text"
                   name="course"
                   id="course"
-                  value={student.course}
-                  onChange={updateStudent}
+                  value={member.course}
+                  onChange={updateMember}
                   className="editInputs"
                 />
               </div>
@@ -171,8 +171,8 @@ export default function Edit() {
                   type="text"
                   name="address"
                   id="address"
-                  value={student.address}
-                  onChange={updateStudent}
+                  value={member.address}
+                  onChange={updateMember}
                   className="editInputs"
                 />
               </div>
@@ -184,8 +184,8 @@ export default function Edit() {
                   type="Datetime-local"
                   name="expireAt"
                   id="expireAt"
-                  value={student.expireAt}
-                  onChange={updateStudent}
+                  value={member.expireAt}
+                  onChange={updateMember}
                   className="editInputs"
                 />
               </div>
@@ -198,8 +198,8 @@ export default function Edit() {
                   type="text"
                   name="rfidBadgeNumber"
                   id="rfidBadgeNumber"
-                  value={student.rfidBadgeNumber}
-                  onChange={updateStudent}
+                  value={member.rfidBadgeNumber}
+                  onChange={updateMember}
                   className="editInputs"
                 />
               </div>

@@ -4,54 +4,54 @@ import { Link } from "react-router-dom";
 
 
 
-export default function Cards({ students }) {
+export default function Cards({ members }) {
   return (
     <div className="cardsWrapper">
       <div className="cards">
-        {students.length === 0 && <p>No student(s) found</p>}
-        {students.map((student) => {
+        {members.length === 0 && <p>No member(s) found</p>}
+        {members.map((member) => {
           return (
-            <div key={student._id} className="card">
+            <div key={member._id} className="card">
               <img
                 src={
-                  student.imagePic
-                    ? "http://localhost:5000/" + student.imagePic
+                  member.imagePic
+                    ? "http://localhost:5000/" + member.imagePic
                     : "http://localhost:5000/images/defaultPic.png"
                 }
                 alt="profile pic"
               />
-              <h3>{`${student.firstName} ${student.lastName}`}</h3>
+              <h3>{`${member.firstName} ${member.lastName}`}</h3>
               <div className="text">
                 <p>
-                  <span className="label">Student ID:</span>
+                  <span className="label">Member ID:</span>
                 </p>
                 <p>
-                  <span className="info">{student.studentId}</span>
+                  <span className="info">{member.memberId}</span>
                 </p>
                 <p>
                   <span className="label">Course:</span>
                 </p>
                 <p>
-                  <span className="info">{student.course}</span>
+                  <span className="info">{member.course}</span>
                 </p>
                 <p>
                   <span className="label">RFID Number:</span>
                 </p>
                 <p>
-                  <span className="info">{student.rfidBadgeNumber}</span>
+                  <span className="info">{member.rfidBadgeNumber}</span>
                 </p>
                 <p>
                   <span className="label">Membership Expire:</span>
                 </p>
                 <p>
-                  <span className="info">{student.expireAt.slice(0,10)} UTC</span>
+                  <span className="info">{member.expireAt.slice(0,10)}</span>
                 </p>
               </div>
               <div className="btnContainer">
-                <Link to={`edit/${student._id}`} className="cardBtn m-top">
+                <Link to={`edit/${member._id}`} className="cardBtn m-top">
                   Edit
                 </Link>
-                <Link to={`delete/${student._id}`} className="cardBtn m-top">
+                <Link to={`delete/${member._id}`} className="cardBtn m-top">
                   Delete
                 </Link>
               </div>

@@ -8,9 +8,9 @@ import "./add.css";
 export default function Add() {
   // For navigation during button click
   const navigate = useNavigate();
-  // State object of our student
-  const [student, setStudent] = useState({
-    studentId: "",
+  // State object of our member
+  const [member, setMember] = useState({
+    memberId: "",
     firstName: "",
     lastName: "",
     course: "",
@@ -28,10 +28,10 @@ export default function Add() {
   });
 
   // Used for updating our state object
-  const updateStudent = (e) => {
+  const updateMember = (e) => {
     const fieldName = e.target.name;
-    setStudent((currentStudent) => ({
-      ...currentStudent,
+    setMember((currentMember) => ({
+      ...currentMember,
       [fieldName]: e.target.value,
     }));
   };
@@ -45,19 +45,20 @@ export default function Add() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const studenData = new FormData();
-    studenData.append("studentId", student.studentId);
-    studenData.append("firstName", student.firstName);
-    studenData.append("lastName", student.lastName);
-    studenData.append("course", student.course);
-    studenData.append("address", student.address);
-    studenData.append("expireAt", student.expireAt);
-    studenData.append("rfidBadgeNumber", student.rfidBadgeNumber);
+    studenData.append("memberId", member.memberId);
+    studenData.append("firstName", member.firstName);
+    studenData.append("lastName", member.lastName);
+    studenData.append("course", member.course);
+    studenData.append("address", member.address);
+    studenData.append("expireAt", member.expireAt);
+    studenData.append("rfidBadgeNumber", member.rfidBadgeNumber);
     if (file) {
       studenData.append("file", file);
     }
     try {
-      await axios.post("http://localhost:5000/api/students", studenData);
-      showMessage(true, "info", "Successfully added student information");
+      await axios.post("http://localhost:5000/api/members/", studenData);
+      showMessage(true, "info", "Successfully added member information");
+      navigate("/")
     } catch (error) {
       showMessage(true, "error", error);
     }
@@ -68,7 +69,7 @@ export default function Add() {
     <>
       <Header />
       <div className="header">
-        <h1>Add Student</h1>
+        <h1>Add Member</h1>
       </div>
       <section className="managePage">
         <form className="editForm" onSubmit={handleSubmit}>
@@ -96,15 +97,15 @@ export default function Add() {
             </div>
             <div className="fieldsColumn">
               <div className="fieldRow">
-                <label htmlFor="studentId" className="fieldLabel">
-                  Student ID
+                <label htmlFor="memberId" className="fieldLabel">
+                  Member ID
                 </label>
                 <input
                   type="text"
-                  name="studentId"
-                  id="studentId"
-                  value={student.studentId}
-                  onChange={updateStudent}
+                  name="memberId"
+                  id="memberId"
+                  value={member.memberId}
+                  onChange={updateMember}
                   className="addInputs"
                 />
               </div>
@@ -116,8 +117,8 @@ export default function Add() {
                   type="text"
                   name="firstName"
                   id="firstName"
-                  value={student.firstName}
-                  onChange={updateStudent}
+                  value={member.firstName}
+                  onChange={updateMember}
                   className="addInputs"
                 />
               </div>
@@ -129,8 +130,8 @@ export default function Add() {
                   type="text"
                   name="lastName"
                   id="lastName"
-                  value={student.lastName}
-                  onChange={updateStudent}
+                  value={member.lastName}
+                  onChange={updateMember}
                   className="addInputs"
                 />
               </div>
@@ -142,8 +143,8 @@ export default function Add() {
                   type="text"
                   name="course"
                   id="course"
-                  value={student.course}
-                  onChange={updateStudent}
+                  value={member.course}
+                  onChange={updateMember}
                   className="addInputs"
                 />
               </div>
@@ -155,8 +156,8 @@ export default function Add() {
                   type="text"
                   name="address"
                   id="address"
-                  value={student.address}
-                  onChange={updateStudent}
+                  value={member.address}
+                  onChange={updateMember}
                   className="addInputs"
                 />
               </div>
@@ -168,8 +169,8 @@ export default function Add() {
                   type="Datetime-local"
                   name="expireAt"
                   id="expireAt"
-                  value={student.expireAt}
-                  onChange={updateStudent}
+                  value={member.expireAt}
+                  onChange={updateMember}
                   className="addInputs"
                 />
               </div>
@@ -182,8 +183,8 @@ export default function Add() {
                   type="text"
                   name="rfidBadgeNumber"
                   id="rfidBadgeNumber"
-                  value={student.rfidBadgeNumber}
-                  onChange={updateStudent}
+                  value={member.rfidBadgeNumber}
+                  onChange={updateMember}
                   className="addInputs"
                 />
               </div>

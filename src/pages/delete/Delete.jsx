@@ -11,9 +11,9 @@ export default function Delete() {
   const navigate = useNavigate();
   // Extract the ID from the browser url
   const { id } = useParams();
-  // Our student state information
-  const [student, setStudent] = useState({
-    studentId: "",
+  // Our member state information
+  const [member, setMember] = useState({
+    memberId: "",
     firstName: "",
     lastName: "",
     course: "",
@@ -28,13 +28,13 @@ export default function Delete() {
     type: "",
   });
 
-  // Get the student information by passing the ID into our MongoDB Atlas database
+  // Get the member information by passing the ID into our MongoDB Atlas database
   useEffect(() => {
-    const getStudent = async () => {
-      const res = await axios.get("http://localhost:5000/api/students/" + id);
-      setStudent(res.data);
+    const getMember = async () => {
+      const res = await axios.get("http://localhost:5000/api/members/" + id);
+      setMember(res.data);
     };
-    getStudent();
+    getMember();
   }, [id]);
 
   // Function to show or hide messages
@@ -46,18 +46,19 @@ export default function Delete() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.delete("http://localhost:5000/api/students/" + student._id);
-      showMessage(true, "info", "Successfully deleted student information");
-      clearStudentInfo();
+      await axios.delete("http://localhost:5000/api/members/" + member._id);
+      showMessage(true, "info", "Successfully deleted member information");
+      navigate("/")
+      clearMemberInfo();
     } catch (error) {
       showMessage(true, "error", error);
     }
   };
 
-  // Clear student info after deletion
-  const clearStudentInfo = () => {
-    setStudent({
-      studentId: "",
+  // Clear member info after deletion
+  const clearMemberInfo = () => {
+    setMember({
+      memberId: "",
       firstName: "",
       lastName: "",
       course: "",
@@ -72,7 +73,7 @@ export default function Delete() {
     <>
       <Header />
       <div className="header">
-        <h1>Delete Student</h1>
+        <h1>Delete Member</h1>
       </div>
       <section className="managePage">
         <form className="editForm" onSubmit={handleSubmit}>
@@ -80,8 +81,8 @@ export default function Delete() {
             <div className="imgColumn">
               <img
                 src={
-                  student.imagePic
-                    ? `http://localhost:5000/${student.imagePic}`
+                  member.imagePic
+                    ? `http://localhost:5000/${member.imagePic}`
                     : "http://localhost:5000/images/defaultPic.png"
                 }
                 alt="Profile Pic"
@@ -89,14 +90,14 @@ export default function Delete() {
             </div>
             <div className="fieldsColumn">
               <div className="fieldRow">
-                <label htmlFor="studentId" className="fieldLabel">
-                  Student ID
+                <label htmlFor="MemberId" className="fieldLabel">
+                  Member ID
                 </label>
                 <input
                   type="text"
-                  name="studentId"
-                  id="studentId"
-                  value={student.studentId}
+                  name="memberId"
+                  id="memberId"
+                  value={member.memberId}
                   readOnly={true}
                   className="deleteInputs"
                 />
@@ -109,7 +110,7 @@ export default function Delete() {
                   type="text"
                   name="firstName"
                   id="firstName"
-                  value={student.firstName}
+                  value={member.firstName}
                   readOnly={true}
                   className="deleteInputs"
                 />
@@ -122,7 +123,7 @@ export default function Delete() {
                   type="text"
                   name="lastName"
                   id="lastName"
-                  value={student.lastName}
+                  value={member.lastName}
                   readOnly={true}
                   className="deleteInputs"
                 />
@@ -135,7 +136,7 @@ export default function Delete() {
                   type="text"
                   name="course"
                   id="course"
-                  value={student.course}
+                  value={member.course}
                   readOnly={true}
                   className="deleteInputs"
                 />
@@ -148,7 +149,7 @@ export default function Delete() {
                   type="text"
                   name="address"
                   id="address"
-                  value={student.address}
+                  value={member.address}
                   readOnly={true}
                   className="deleteInputs"
                 />
@@ -161,7 +162,7 @@ export default function Delete() {
                   type="text"
                   name="rfidBadgeNumber"
                   id="rfidBadgeNumber"
-                  value={student.rfidBadgeNumber}
+                  value={member.rfidBadgeNumber}
                   readOnly={true}
                   className="deleteInputs"
                 />
